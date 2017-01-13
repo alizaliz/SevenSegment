@@ -36,14 +36,14 @@ SevenSegment::SevenSegment(int pinA,int pinB,int pinC,int pinD,int pinE,int pinF
 }
 
 
-void SevenSegment::Clear(){
+void SevenSegment::clear(){
   for(int i = 0; i< 7; i++)
   {
     digitalWrite(_pin_array[i],_type); // Turn off all LEDS
   }
 }
 
-void SevenSegment::Num_Write(int num)
+void SevenSegment::numWrite(int num)
 {
   if (num >= 0 && num <= 9)
   for (int i=0; i < 7; i++) {
@@ -54,12 +54,24 @@ void SevenSegment::Num_Write(int num)
   }
 }
 
-void SevenSegment::Seg_Loop(int loops)
+void SevenSegment::numWrite(int num, int ms)
+{
+  if (num >= 0 && num <= 9)
+  for (int i=0; i < 7; i++) {
+    if(_type == COMMON_CATHODE)
+      digitalWrite(_pin_array[i], !_num_array[num][i]);
+    else if (_type == COMMON_ANODE)
+      digitalWrite(_pin_array[i], _num_array[num][i]);
+    delay(ms);
+  }
+}
+
+void SevenSegment::segLoop(int loops, int ms)
 {
   for(int i =0; i < loops; i ++){
     for( int j =0; j<6;j++){ // Outside segments - No G
-      for (int k=0; k < 6; k++) {
-        if(i == j) 
+      for (int k=0; k < 7; k++) {
+        if(k == j) 
         { // Deactivate Leds
           if(_type == COMMON_CATHODE)
             digitalWrite(_pin_array[k],1); 
@@ -75,7 +87,7 @@ void SevenSegment::Seg_Loop(int loops)
             digitalWrite(_pin_array[k],1); 
         }
       }
-      delay(100);
+      delay(ms);
     }
   }
 }

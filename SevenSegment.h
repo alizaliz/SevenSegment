@@ -19,9 +19,10 @@ class SevenSegment
 {
   public:
     SevenSegment(int pinA,int pinB,int pinC,int pinD,int pinE,int pinF,int pinG, int type);
-    void Num_Write(int num);
-    void Seg_Loop(int loops);
-    void Clear();
+    void numWrite(int num);
+    void numWrite(int num, int ms);
+    void segLoop(int loops, int ms);
+    void clear();
   private:
     int _type;
     int _pin_array[7];
