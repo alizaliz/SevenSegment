@@ -1,4 +1,28 @@
-SevenSegment        KEYWORD1
-numWrite   KEYWORD2
-segLoop    KEYWORD2
-clear   KEYWORD2
+#######################################
+# Syntax Coloring Map For Bounce2
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+SevenSegment	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+numWrite	KEYWORD2
+segLoop	KEYWORD2
+clear	KEYWORD2
+
+#######################################
+# Instances (KEYWORD2)
+#######################################
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+COMMON_ANODE LITERAL1
+COMMON_CATHODE	LITERAL1
