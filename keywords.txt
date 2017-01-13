@@ -1,0 +1,4 @@
+SevenSegment        KEYWORD1
+Num_Write   KEYWORD2
+Seg_Loop    KEYWORD2
+Clear   KEYWORD2
