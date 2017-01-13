@@ -35,7 +35,7 @@ SevenSegment::SevenSegment(int pinA,int pinB,int pinC,int pinD,int pinE,int pinF
     
 }
 
-
+// Clear segments (turn all LEDs off)
 void SevenSegment::clear(){
   for(int i = 0; i< 7; i++)
   {
@@ -43,6 +43,7 @@ void SevenSegment::clear(){
   }
 }
 
+// Write number immediately
 void SevenSegment::numWrite(int num)
 {
   if (num >= 0 && num <= 9)
@@ -54,10 +55,12 @@ void SevenSegment::numWrite(int num)
   }
 }
 
+// Write number with delay(ms) between segment change
 void SevenSegment::numWrite(int num, int ms)
 {
   if (num >= 0 && num <= 9)
   for (int i=0; i < 7; i++) {
+    // Match to LED matrix
     if(_type == COMMON_CATHODE)
       digitalWrite(_pin_array[i], !_num_array[num][i]);
     else if (_type == COMMON_ANODE)
@@ -66,13 +69,14 @@ void SevenSegment::numWrite(int num, int ms)
   }
 }
 
+// Loop through segments
 void SevenSegment::segLoop(int loops, int ms)
 {
   for(int i =0; i < loops; i ++){
     for( int j =0; j<6;j++){ // Outside segments - No G
       for (int k=0; k < 7; k++) {
         if(k == j) 
-        { // Deactivate Leds
+        { // Activate Leds
           if(_type == COMMON_CATHODE)
             digitalWrite(_pin_array[k],1); 
           else if (_type == COMMON_ANODE)
@@ -80,7 +84,7 @@ void SevenSegment::segLoop(int loops, int ms)
           
         } 
         else 
-        {  // Activate LED
+        {  // Deactivate LED
           if(_type == COMMON_CATHODE)
             digitalWrite(_pin_array[k],0); 
           else if (_type == COMMON_ANODE)
