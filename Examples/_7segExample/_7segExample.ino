@@ -10,10 +10,12 @@ const int sPinF = 8;
 const int sPinG = 9;
 
 // Display
-SevenSegment disp = SevenSegment(sPinA,sPinB,sPinC,sPinD,sPinE,sPinF,sPinG,COMMON_CATHODE);
-//SevenSegment disp = SevenSegment(sPinA,sPinB,sPinC,sPinD,sPinE,sPinF,sPinG,COMMON_ANODE);
+SevenSegment disp = SevenSegment();
 
 void setup() {
+  disp.attach(sPinA, sPinB, sPinC, sPinD, sPinE, sPinF, sPinG);
+
+  //disp.type(COMMON_ANODE)
   // Blank out display
   disp.clear();
 }

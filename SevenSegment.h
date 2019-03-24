@@ -15,18 +15,22 @@
 #define COMMON_CATHODE 0
 #define COMMON_ANODE 1
 
+/** The SevenSegment class. */
 class SevenSegment
 {
   public:
     //Initialiser
-    SevenSegment(int pinA,int pinB,int pinC,int pinD,int pinE,int pinF,int pinG, int type);
+    SevenSegment();
+    void attach(int pinA,int pinB,int pinC,int pinD,int pinE,int pinF,int pinG);
+    void type(int dispType);
     void numWrite(int num); // Write a number
     void numWrite(int num, int ms); // Write a number with delayed draw
     void segLoop(int loops, int ms); // Loop segments 
     void clear(); // Clear display
+
   private:
-    int _type;
-    int _pin_array[7];
+    int _type = COMMON_CATHODE;
+    int _pin_array[7] = {0,1,2,3,4,5,6};
     // Character matrix
                              // a,b,c,d,e,f,g
     int _num_array[10][7] = { { 0,0,0,0,0,0,1 },    // 0

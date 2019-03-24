@@ -9,13 +9,25 @@
 #include "SevenSegment.h"
 
 
-SevenSegment::SevenSegment(int pinA,int pinB,int pinC,int pinD,int pinE,int pinF,int pinG, int type)
+SevenSegment::SevenSegment()
+{}
+
+void SevenSegment::attach(int pinA,int pinB,int pinC,int pinD,int pinE,int pinF,int pinG)
 {
     // Determines if output low or high to turn on LED Segment 
-    if(type > 1 || type < 0)
-      _type = COMMON_ANODE; // Default
-    else
-      _type = type; 
+    // if(type > 1 || type < 0)
+    //   _type = COMMON_ANODE; // Default
+    // else
+    //   _type = type; 
+
+       // Store pin segment sequence
+    _pin_array[0] = pinA;
+    _pin_array[1] = pinB;
+    _pin_array[2] = pinC;
+    _pin_array[3] = pinD;
+    _pin_array[4] = pinE;
+    _pin_array[5] = pinF;
+    _pin_array[6] = pinG;
     // Initialise pins
     pinMode(pinA, OUTPUT);
     pinMode(pinB, OUTPUT);
@@ -24,15 +36,7 @@ SevenSegment::SevenSegment(int pinA,int pinB,int pinC,int pinD,int pinE,int pinF
     pinMode(pinE, OUTPUT);
     pinMode(pinF, OUTPUT);
     pinMode(pinG, OUTPUT);
-    // Store pin segment sequence
-    _pin_array[0] = pinA;
-    _pin_array[1] = pinB;
-    _pin_array[2] = pinC;
-    _pin_array[3] = pinD;
-    _pin_array[4] = pinE;
-    _pin_array[5] = pinF;
-    _pin_array[6] = pinG;
-    
+   
 }
 
 // Clear segments (turn all LEDs off)
@@ -95,4 +99,3 @@ void SevenSegment::segLoop(int loops, int ms)
     }
   }
 }
-
