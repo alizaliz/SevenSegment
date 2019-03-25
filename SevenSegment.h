@@ -15,6 +15,10 @@
 #define COMMON_CATHODE 0
 #define COMMON_ANODE 1
 
+#define REST 0
+#define LOOP 1
+#define WRITE 2
+
 /** The SevenSegment class. */
 class SevenSegment
 {
@@ -22,15 +26,25 @@ class SevenSegment
     //Initialiser
     SevenSegment();
     void attach(int pinA,int pinB,int pinC,int pinD,int pinE,int pinF,int pinG);
-    void type(int dispType);
-    void numWrite(int num); // Write a number
-    void numWrite(int num, int ms); // Write a number with delayed draw
-    void segLoop(int loops, int ms); // Loop segments 
+    void type(int disp_type);
+    void update();
+    void interval(uint16_t interval_millis);
+    void numWrite(int display_value); // Write a number
+    void segLoop(int loops); // Loop segments 
     void clear(); // Clear display
+    int currentState();
 
-  private:
-    int _type = COMMON_CATHODE;
-    int _pin_array[7] = {0,1,2,3,4,5,6};
+  protected:
+   
+    int disp_type = COMMON_CATHODE;
+    int seg = 0;
+    int loops = 0;
+    int loops_complete = 0;
+    int display_value = 0;
+    uint16_t previous_millis = 0;
+    uint16_t interval_millis = 0;
+    int pin_array[7] = {0,1,2,3,4,5,6};
+    int state = REST; 
     // Character matrix
                              // a,b,c,d,e,f,g
     int _num_array[10][7] = { { 0,0,0,0,0,0,1 },    // 0
@@ -43,7 +57,10 @@ class SevenSegment
                               { 0,0,0,1,1,1,1 },    // 7
                               { 0,0,0,0,0,0,0 },    // 8
                               { 0,0,0,0,1,0,0 }};   // 9
-                              
+
+  private:
+    inline void reset();
+    inline void updateDisplay(int segment, bool value);
         
 };
 
