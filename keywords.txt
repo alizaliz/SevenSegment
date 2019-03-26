@@ -1,5 +1,5 @@
 #######################################
-# Syntax Coloring Map For Bounce2
+# Syntax Coloring Map For SevenSegment
 #######################################
 
 #######################################
@@ -12,9 +12,14 @@ SevenSegment	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
-numWrite	KEYWORD2
+attach    KEYWORD2
+type    KEYWORD2
+update    KEYWORD2
+interval    KEYWORD2
+numWrite    KEYWORD2
 segLoop	KEYWORD2
 clear	KEYWORD2
+currentState    KEYWORD2
 
 #######################################
 # Instances (KEYWORD2)
