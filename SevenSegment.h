@@ -26,12 +26,13 @@ class SevenSegment
     //Initialiser
     SevenSegment();
     void attach(int pinA,int pinB,int pinC,int pinD,int pinE,int pinF,int pinG);
+    void attach(int pinA,int pinB,int pinC,int pinD,int pinE,int pinF,int pinG, int disp_type);
     void type(int disp_type);
     void update();
     void interval(uint16_t interval_millis);
-    void numWrite(int display_value); // Write a number
-    void segLoop(int loops); // Loop segments 
-    void clear(); // Clear display
+    void numWrite(int display_value); 
+    void segLoop(int loops); 
+    void clear(); 
     int currentState();
 
   protected:

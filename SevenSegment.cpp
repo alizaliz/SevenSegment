@@ -13,12 +13,6 @@ SevenSegment::SevenSegment()
 
 void SevenSegment::attach(int pinA, int pinB, int pinC, int pinD, int pinE, int pinF, int pinG)
 {
-  // Determines if output low or high to turn on LED Segment
-  // if(type > 1 || type < 0)
-  //   _type = COMMON_ANODE; // Default
-  // else
-  //   _type = type;
-
   // Store pin segment sequence
   pin_array[0] = pinA;
   pin_array[1] = pinB;
@@ -35,6 +29,12 @@ void SevenSegment::attach(int pinA, int pinB, int pinC, int pinD, int pinE, int 
   pinMode(pinE, OUTPUT);
   pinMode(pinF, OUTPUT);
   pinMode(pinG, OUTPUT);
+}
+
+void SevenSegment::attach(int pinA, int pinB, int pinC, int pinD, int pinE, int pinF, int pinG, int disp_type)
+{
+  attach(pinA, pinB, pinC, pinD, pinE, pinF, pinG);
+  type(disp_type);
 }
 
 void SevenSegment::type(int disp_type)
@@ -73,6 +73,7 @@ void SevenSegment::update()
           }
         }
         loops_complete++;
+        // Reset on complettion
         if(loops_complete >= loops)
         {
           loops_complete = 0;
@@ -85,7 +86,8 @@ void SevenSegment::update()
         updateDisplay(seg, _num_array[display_value][seg]);
         seg++;
         break;
-    
+
+      // Catchall case - Do nothing here
       case REST:
       default:
         return;
@@ -100,14 +102,12 @@ void SevenSegment::update()
   }
 }
 
-// Clear segments (turn all LEDs off)
 void SevenSegment::clear()
 {
   reset();
   state = REST;
 }
 
-// Write number immediately
 void SevenSegment::numWrite(int display_value)
 {
   if (!(display_value >= 0 && display_value <= 9))
@@ -117,7 +117,6 @@ void SevenSegment::numWrite(int display_value)
   state = WRITE;
 }
 
-// Loop through segments
 void SevenSegment::segLoop(int loops)
 {
   this->loops = loops;
@@ -147,7 +146,7 @@ inline void SevenSegment::updateDisplay(int segment, bool value)
     case COMMON_ANODE:
       digitalWrite(pin_array[segment], value);
       break;
-    case COMMON_CATHODE:
+    case COMMON_CATHODE: 
       digitalWrite(pin_array[segment], !value);
       break;
   }
