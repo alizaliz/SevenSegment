@@ -15,17 +15,19 @@ int i = -1;
 int num = 0;
 
 void setup() {
+  // Attach Display
   disp.attach(sPinA, sPinB, sPinC, sPinD, sPinE, sPinF, sPinG);
-
   disp.type(COMMON_ANODE);
+  disp.interval(100);
   // Blank out display
   disp.clear();
-  disp.interval(100);
 }
 
 void loop() {
-  disp.update();
-
+  // Update MUST be called every cycle
+  disp.update(); 
+  
+  // Change dislay values only when at rest
   if(disp.currentState() == REST)
   {
     i++;
@@ -38,10 +40,12 @@ void loop() {
   }
   else if ( i > 0 && i <= 9)
   {
+    // Write numbers 0 - 9
     disp.numWrite(i);
   }
   else
   {
+    // Reset sequence
     i = 0;
   }
 
