@@ -12,13 +12,13 @@ SevenSegment	KEYWORD1
 # Methods and Functions (KEYWORD2)
 #######################################
 
-attach    KEYWORD2
+attach  KEYWORD2
 type    KEYWORD2
-update    KEYWORD2
+update  KEYWORD2
 interval    KEYWORD2
 numWrite    KEYWORD2
-segLoop	KEYWORD2
-clear	KEYWORD2
+segLoop KEYWORD2
+clear   KEYWORD2
 currentState    KEYWORD2
 
 #######################################
