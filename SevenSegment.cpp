@@ -50,40 +50,19 @@ void SevenSegment::interval(uint16_t interval_millis)
 void SevenSegment::update()
 {
 
-  if ((millis() - previous_millis >= interval_millis) && (seg < 7))
+  if ((millis() - previous_millis >= interval_millis) && (seg <= 7))
   {
     switch (state)
     {
       case LOOP:
-        if (loops_complete < loops)
+        for (int j = 0 ; j < 7 ; j++)
         {
-          for (seg = 0; seg < 6; seg++)
-          { // Outside segments - No G
-            for (int k = 0; k < 7; k++)
-            {
-              if (k == seg)
-              { // Activate Leds
-                updateDisplay(seg, true);
-              }
-              else
-              { // Deactivate LED
-                updateDisplay(seg, false);
-              }
-            }
-          }
+          updateDisplay(j, loop_array[seg][j]);
         }
-        loops_complete++;
-        // Reset on complettion
-        if(loops_complete >= loops)
-        {
-          loops_complete = 0;
-          seg = 0;
-          state = REST;
-        }
+        seg++;
         break;
-
       case WRITE:
-        updateDisplay(seg, _num_array[display_value][seg]);
+        updateDisplay(seg, num_array[display_value][seg]);
         seg++;
         break;
 
@@ -95,10 +74,17 @@ void SevenSegment::update()
 
     previous_millis = millis();
   }
-  else if (seg >= 7)
+  else if (seg > 7)
   {
       seg = 0;
-      state = REST;
+      if(loops > 0)
+      {
+        loops--;
+      }
+      else
+      {
+        state = REST;
+      }
   }
 }
 
@@ -140,14 +126,16 @@ inline void SevenSegment::reset()
 
 inline void SevenSegment::updateDisplay(int segment, bool value)
 {
-  switch (disp_type)
-  {
-    default:
-    case COMMON_ANODE:
-      digitalWrite(pin_array[segment], value);
-      break;
-    case COMMON_CATHODE: 
-      digitalWrite(pin_array[segment], !value);
-      break;
-  }
+    if(segment < 0 || segment >= 7) return;
+    switch (disp_type)
+    {
+      default:
+      case COMMON_ANODE:
+        digitalWrite(pin_array[segment], !value);
+        break;
+      case COMMON_CATHODE: 
+        digitalWrite(pin_array[segment], value);
+        break;
+    }
+  
 }
