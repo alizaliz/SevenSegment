@@ -50,12 +50,12 @@ void SevenSegment::interval(uint16_t interval_millis)
 void SevenSegment::update()
 {
 
-  if ((millis() - previous_millis >= interval_millis) && (seg <= 7))
+  if ((millis() - previous_millis >= interval_millis) && (seg <= SEGMENTS))
   {
     switch (state)
     {
       case LOOP:
-        for (int j = 0 ; j < 7 ; j++)
+        for (int j = 0 ; j < 9 ; j++)
         {
           updateDisplay(j, loop_array[seg][j]);
         }
@@ -74,7 +74,7 @@ void SevenSegment::update()
 
     previous_millis = millis();
   }
-  else if (seg > 7)
+  else if (seg > SEGMENTS)
   {
       seg = 0;
       if(loops > 0)
@@ -117,7 +117,7 @@ int SevenSegment::currentState()
 
 inline void SevenSegment::reset()
 {
-  for (seg = 0; seg < 7; seg++)
+  for (seg = 0; seg < SEGMENTS; seg++)
   {
     updateDisplay(seg, false); // Turn off all LEDS
   }
@@ -126,7 +126,7 @@ inline void SevenSegment::reset()
 
 inline void SevenSegment::updateDisplay(int segment, bool value)
 {
-    if(segment < 0 || segment >= 7) return;
+    if(segment < 0 || segment >= SEGMENTS) return;
     switch (disp_type)
     {
       default:
